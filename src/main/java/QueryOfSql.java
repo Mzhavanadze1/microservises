@@ -2,32 +2,32 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class QueryOfSql {
-    public static String GetActiveLoans = """
+    public static String GetActiveLoansQuery = """
                 SELECT LoanId,LoanStatusId FROM ListOfBalance.dbo.InsLoan
                 where LoanStatusId='1'
                 """;
 
 
 
-    public List<GetActiveLoanModel> getActiveLoans(String query) throws SQLException, ClassNotFoundException {
+    public Map<String,String> getActiveLoans() throws SQLException, ClassNotFoundException {
         DataBaseAccess dataBaseAccess = new DataBaseAccess();
         dataBaseAccess.connectSQL();
         dataBaseAccess.getInstance().createStatement();
-        PreparedStatement preparedStatement = dataBaseAccess.connection.prepareStatement(query);
+        PreparedStatement preparedStatement = dataBaseAccess.connection.prepareStatement(GetActiveLoansQuery);
         ResultSet resultSet = preparedStatement.executeQuery();
 
-        List<GetActiveLoanModel> dBLoans = new ArrayList<>();
+        Map<String,String> dBData=new HashMap<>();
+
         while (resultSet.next()) {
-            GetActiveLoanModel getActiveLoanModel = new GetActiveLoanModel();
-            getActiveLoanModel.setLoanId(resultSet.getString("LoanId"));
-            getActiveLoanModel.setIsActive(resultSet.getString("LoanStatusId"));
-            dBLoans.add(getActiveLoanModel);
+            dBData.put(resultSet.getString("LoanId"),resultSet.getString("LoanStatusId"));
         }
 
-        return dBLoans;
+        return dBData;
     }
 }
 

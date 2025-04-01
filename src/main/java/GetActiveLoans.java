@@ -13,7 +13,7 @@ public class GetActiveLoans {
                 .header("Authorization","application/json");
 
     }
-    public static ResponseSpecification getTransactionsResponse(){
+    public static ResponseSpecification getActionLoansResponse(){
         return new ResponseSpecBuilder()
                 .expectStatusCode(200)
                 .expectContentType("application/json")

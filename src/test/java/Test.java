@@ -1,8 +1,15 @@
+import org.testng.Assert;
+import org.testng.asserts.Assertion;
+
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
 public class Test {
-    GetActiveLoansCall getActiveLoansCall = new GetActiveLoansCall();
-@org.testng.annotations.Test
-    public  void gashveba1(){
-        getActiveLoansCall.getActiveLoans();
+    @org.testng.annotations.Test
+    public void testApiAndDbLoansAreEqual() throws SQLException, ClassNotFoundException, IOException {
+        Steps.compareLoansStatus();
+    }
 
     }
-}
+
